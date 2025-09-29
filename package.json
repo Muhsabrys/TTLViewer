@@ -1,0 +1,25 @@
+{
+  "name": "ttl-rdf-viewer",
+  "version": "0.1.0",
+  "description": "Lightweight TTL (Turtle) RDF viewer with triples, simple SPARQL and D3 visualization",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest --silent",
+    "start": "npx http-server -c-1 . -p 8080",
+    "build": "node build.js",
+    "prepare": "node build.js",
+    "deploy": "echo 'Use GH Actions to deploy dist/'"
+  },
+  "keywords": ["rdf","turtle","ttl","sparql","visualization"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "n3": "^1.16.0",
+    "@comunica/actor-init-sparql": "^2.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "http-server": "^14.1.1",
+    "esbuild": "^0.19.0"
+  }
+}

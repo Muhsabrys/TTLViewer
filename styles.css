@@ -1,0 +1,16 @@
+/* minimal copy of styles for publish */
+:root{ --bg:#0f1720; --card:#0b1220; --muted:#9ca3af; --blue:#3b82f6; --yellow:#f59e0b; --green:#10b981; --accent:#7c3aed; color-scheme: dark }
+body{margin:0;background:linear-gradient(180deg,#071021 0%, #071827 100%);color:#e6eef8;font-family:Inter,system-ui,Segoe UI,Roboto}
+header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px}
+.controls{display:flex;gap:16px;align-items:center}
+.card{background:var(--card);padding:16px;border-radius:10px}
+.tabs{display:flex;gap:8px}
+.tabs button{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
+.tabs button.active{color:#fff}
+.triples-list{font-family:Menlo,monospace;font-size:13px;padding:8px;border-radius:6px;background:linear-gradient(0deg,rgba(255,255,255,0.01),transparent)}
+.triples-table thead th{position:sticky;top:0;background:rgba(11,18,32,0.95);backdrop-filter:blur(4px);z-index:2}
+.triples-table tbody tr:nth-child(odd){background:rgba(255,255,255,0.01)}
+.triples-table .td-s{color:var(--blue);width:34%}
+.triples-table .td-p{color:var(--yellow);width:33%}
+.triples-table .td-o{color:var(--green);width:33%}
+.viz-tooltip{pointer-events:none}

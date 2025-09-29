@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TTL RDF Viewer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/n3@1.16.0/browser/n3.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>TTL RDF Viewer</h1>
+    <div class="controls">
+      <label class="file-label">Upload .ttl file
+        <input id="fileInput" type="file" accept=".ttl" />
+      </label>
+      <div id="status">No file loaded</div>
+    </div>
+  </header>
+
+  <main>
+    <section id="welcome" class="card">
+      <h2>Welcome</h2>
+      <p>Drop a <code>.ttl</code> (Turtle) file to inspect triples, run simple queries, and visualize the graph.</p>
+      <p>Designed for small files (~500 triples) and teaching/demo use.</p>
+    </section>
+
+    <nav class="tabs">
+      <button data-tab="triples" class="active">Triples</button>
+      <button data-tab="sparql">SPARQL</button>
+      <button data-tab="viz">Visualization</button>
+    </nav>
+
+    <section id="triples" class="tab-content card active">
+      <h3>Triples (raw)</h3>
+      <div id="triplesContainer" class="triples-list"></div>
+      <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+        <button id="showRawTtl">Show raw TTL</button>
+        <div id="rawTtlContainer" style="flex:1;display:none"><pre id="rawTTL" style="white-space:pre-wrap;max-height:240px;overflow:auto;background:transparent;border-radius:6px;padding:8px"></pre></div>
+      </div>
+    </section>
+
+    <section id="sparql" class="tab-content card">
+      <h3>SPARQL-like Query</h3>
+      <div class="query-tools">
+        <div class="preset-buttons">
+          <button data-sample="ALL_TRIPLES">All Triples</button>
+          <button data-sample="ALL_SUBJECTS">All Subjects</button>
+          <button data-sample="ALL_PREDICATES">All Predicates</button>
+          <button data-sample="ALL_OBJECTS">All Objects</button>
+        </div>
+        <textarea id="queryBox" placeholder="Type a simple SPARQL-like query here...">SELECT * WHERE { ?s ?p ?o }</textarea>
+        <div class="query-actions">
+          <button id="executeQuery">Execute</button>
+          <button id="downloadCsv">Export CSV</button>
+          <button id="downloadJson">Export JSON</button>
+          <button id="toggleHelp">Help</button>
+        </div>
+      </div>
+
+      <div id="sparqlHelp" class="help" hidden>
+        <h4>SPARQL-like help</h4>
+        <ul>
+          <li><strong>All Triples</strong> — <code>SELECT * WHERE { ?s ?p ?o }</code></li>
+          <li>Filter by concrete term: <code>SELECT * WHERE { &lt;http://example/s&gt; ?p ?o }</code></li>
+          <li>Filter with contains: <code>SELECT * WHERE { ?s ?p ?o } FILTER CONTAINS(?o,"Alice")</code></li>
+          <li>Limit and Offset: <code>... LIMIT 10 OFFSET 5</code></li>
+        </ul>
+      </div>
+
+      <div id="queryResults"></div>
+    </section>
+
+    <section id="viz" class="tab-content card">
+      <h3>Visualization</h3>
+      <div id="vizControls">
+        <label><input id="showLabels" type="checkbox" checked /> Show predicate labels</label>
+        <label>Search node: <input id="nodeSearch" placeholder="URI or substring" /></label>
+        <button id="exportSvg">Export SVG</button>
+        <label>Link distance: <input id="linkDistance" type="range" min="40" max="300" value="120" /> <span id="linkDistanceVal">120</span></label>
+        <label>Charge: <input id="chargeStrength" type="range" min="-1000" max="-20" value="-300" /> <span id="chargeVal">-300</span></label>
+        <span id="nodeCount"></span>
+      </div>
+
+      <div id="vizArea"></div>
+
+      <div id="vizLegend" class="card">
+        <strong>Legend</strong>
+        <div class="legend-row"><span class="legend-dot subject"></span> Subject</div>
+        <div class="legend-row"><span class="legend-dot object"></span> Object</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <small>TTL RDF Viewer — lightweight browser-based inspector</small>
+  </footer>
+
+  <script>
+    // Try to load bundled file (produced by the build). If it fails, fall back to the source `app.js` so the repo is still runnable locally.
+    (function(){
+      var s = document.createElement('script');
+      s.src = 'bundle.js';
+      s.onload = function(){};
+      s.onerror = function(){ var s2 = document.createElement('script'); s2.src = 'app.js'; document.body.appendChild(s2); };
+      document.body.appendChild(s);
+    })();
+  </script>
+</body>
+</html>
